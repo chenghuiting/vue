@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性的基本使用</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName2}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            firstname: "张",
+            lastname: "三"
+        },
+        computed:{
+            //计算属性完整写法, 每一个计算属性都包含一个getter和一个setter
+            fullName:{
+                set:function (){
+
+                },
+                get:function (){
+                    return this.firstname+' '+this.lastname
+                }
+            },
+            /*
+            computed 计算属性的完整写法有getter和setter方法，但是一般情况下不写setter方法(只读属性),
+            所以，计算属性可以进行如下简写：
+           */
+            fullName:function (){
+                return this.firstname+' '+this.lastname
+            },
+        //实现一下set方法
+            fullName2:{
+                set:function (newValue){
+                    console.log(newValue); //李四
+                    const names=newValue.split('');
+                    this.firstname=names[0];
+                    this.lastname=names[1];
+                },
+                get:function (){
+                    return this.firstname+' '+this.lastname
+                }
+            }
+        }
+    })
+    app.fullName2="李四" //方法只有调用才能打印出来
+</script>
+</body>
+</html>

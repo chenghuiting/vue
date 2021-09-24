@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise的基本使用</title>
+</head>
+<body>
+<script>
+    <!--使用 setTimeout-->
+    // setTimeout(()=>{
+    //     console.log("你好")
+    // },1000)
+
+    //参数->函数（resolve,reject）,resolve,reject 本身它们又是函数
+    //promise 本身是一个类，使用时需要 new
+    //链式编程
+    // new Promise((resolve,reject)=>{
+    //     setTimeout(()=>{
+    //         //一旦调用resolve函数，就会来到 then() 函数那里
+    //        resolve()
+    //     },1000)
+    // }).then(()=>{
+    //     return new Promise(()=>{
+    //         resolve()
+    //     }).then(()=>{
+    //
+    //     })
+    // })
+    //什么情况下会用到Promise？--一般情况下是有异步操作时，使用 Promise对这个异步操作进行封装；
+    //new->构造函数（1.保存了一些信息状态，2.执行传入的函数）
+    //在执行传入的回调函数时，会传入两个参数，resolve,reject,这两个参数本身又是函数
+    // new Promise((resolve, reject) => {
+    //     //网络请求成功的时候调用 resolve
+    //     resolve("hello world")
+    //
+    //    //网络请求失败时调用 reject
+    //     reject()
+    // }).then((data) => {
+    //     //处理的代码
+    //     console.log(data)
+    // }).catch((err) => {
+    //     //捕获失败
+    //     console.log(err)
+    // })
+
+    //Promise的另外一种形式
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('你好')
+            reject('error massage')
+        }, 1000)
+    }).then(data => {
+        console.log(data)
+    }, err => {
+        console.log(err)
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind的基本使用</title>
+</head>
+<body>
+<!--
+前面我们学习的指令主要作用是将值插入到模版的内容当中去
+但是，除了内容需要动态来决定外，某些属性我们也希望动态来绑定；
+    比如，动态绑定a元素的href属性，比如动态绑定img元素的src属性
+这个时候，我们可以使用v-bind指令。
+    v-bind指令：  作用：动态绑定属性
+                 简写：   :
+绑定class有两种方式：  对象语法  数组语法
+-->
+<div id="app">
+    <h2>{{message}}</h2>
+    <img v-bind:src="imgUrl" alt="" width="200px">
+    <a v-bind:href="aHref">百度一下</a>
+<!-- 语法糖写法 -->
+    <h2>{{message}}</h2>
+    <img :src="imgUrl" alt="" width="200px">
+    <a :href="aHref">百度一下</a>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            message:"你好",
+            imgUrl:"https://cn.vuejs.org/images/logo.svg",
+            aHref:"http://www.baidu.com"
+        }
+    })
+</script>
+</body>
+</html>

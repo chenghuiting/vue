@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>子传父--计数器案例</title>
+</head>
+<body>
+<div id="app">
+    <!--发生两个事件时，调用同一个函数changeTotal-->
+    <!--子组件发出事件，通过@increase @decrease监听事件-->
+    <cpn @increase="changeTotal" @decrease="changeTotal"></cpn>
+    <span>{{total}}</span>
+</div>
+
+<template id="cpn">
+    <div>
+        <button @click="decrease">-</button>
+        <button @click="increase">+</button>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const cpn = {
+        template: "#cpn",
+        data() {
+            return {
+                counter: 0
+            }
+        },
+        methods: {
+            decrease() {
+                this.counter--;
+                this.$emit('decrease', this.counter)
+            },
+            increase() {
+                this.counter++;
+                this.$emit('increase', this.counter)
+            }
+        }
+    }
+
+    const app = new Vue({
+        el: "#app",
+        data: {
+            total: 0
+        },
+        methods: {
+            changeTotal(counter) {
+                this.total = counter
+            }
+        },
+        components: {
+            cpn
+        }
+    })
+</script>
+</body>
+</html>

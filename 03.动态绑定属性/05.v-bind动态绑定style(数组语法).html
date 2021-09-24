@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind动态绑定style（对象语法）</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <h2 v-bind:style="[baseStyle,baseStyle1]">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            message:"你好！",
+            baseStyle:{backgroundColor:'red'},
+            baseStyle1:{fontSize:'100px'}
+        },
+    })
+</script>
+</body>
+</html>

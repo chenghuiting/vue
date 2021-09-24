@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text指令的使用</title>
+</head>
+<body>
+<div id="app">
+    <!--v-text指令：和Mustache比较相似，都是用于将数据显示在页面中；v-text通常情况下，接收一个string类型-->
+    <h2>{{message}}</h2>
+     <!-- 将“二狗”覆盖掉了-->
+    <h2 v-text="message">二狗</h2>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            message:"你好",
+
+        }
+    })
+
+</script>
+</body>
+</html>

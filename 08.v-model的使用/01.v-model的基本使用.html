@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model的基本使用</title>
+</head>
+<body>
+<div id="app">
+    <!--vue中使用v-model指令来实现表单元素和数据的双向绑定；v-model可用于 input 和 textarea元素中-->
+    <input type="text" v-model="message">
+    {{message}}
+    <textarea name="" id="" cols="30" rows="10" v-model="message"></textarea>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: "啊哈哈哈哈"
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件通信-结合双向绑定案例</title>
+</head>
+<body>
+<div id="app">
+    <!--将vue实例里的数据传递给子组件-->
+    <cpn v-bind:number1="num1"
+         v-bind:number2="num2"
+         @num1change="num1change"
+         @num2change="num2change"
+    ></cpn>
+</div>
+
+<template id="cpn">
+    <!--不能直接在子组件的模板里修改它的数据，-->
+    <div>
+        <!--<input type="text" v-model="dnumber1">-->
+        <input type="text" v-bind:value="dnumber1" @input="num1Input">
+        <h2>props:{{number1}}</h2>
+        <h2>子组件里的data:{{dnumber1}}</h2>
+        <!--<input type="text" v-model="dnumber2">-->
+        <input type="text" v-bind:value="dnumber2" @input="num2Input">
+        <h2>props:{{number2}}</h2>
+        <h2>子组件里的data:{{dnumber2}}</h2>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            num1: 0,
+            num2: 1
+        },
+        methods: {
+            num1change(value) {
+                console.log(typeof value) //value默认是 string类型
+                //this.num1=+value //前面添加一个加号，将其转化为 Number 类型
+                this.num1 = parseFloat(value) //parseFloat()方法 将其转化为 Number 类型
+            },
+            num2change(value) {
+                this.num2 = +value
+            }
+        },
+        components: {
+            cpn: {
+                template: '#cpn',
+                props: {
+                    number1: Number,
+                    number2: Number,
+                },
+                /*
+                * 不能直接在子组件的模板里修改它的数据，
+                * 而是应该通过 data 或 conputed 来修改
+                * */
+                data() {
+                    return {
+                        dnumber1: this.number1,
+                        dnumber2: this.number2
+                    }
+                },
+                methods: {
+                    num1Input(event) {
+                        //1.将input中的value赋值到dnumber中
+                        this.dnumber1 = event.target.value;
+                        //2.为了让父组件可以修改值，发出一个事件
+                        this.$emit('num1change', this.dnumber1)
+                        //3.同时修改dnumber2的值
+                        this.dnumber2=this.dnumber1*100;
+                        this.$emit('number2change',this.dnumber2)
+                    },
+                    num2Input(event) {
+                        this.dnumber2 = event.target.value;
+                        this.$emit('num2change', this.dnumber2)
+                        //3.同时修改dnumber2的值
+                        this.dnumber1=this.dnumber2/100;
+                        this.$emit('number1change',this.dnumber1)
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

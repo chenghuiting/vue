@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件通信-父传子props</title>
+</head>
+<body>
+<div id="app">
+    <!--注意：此处要用v-bind动态绑定-->
+    <cpn v-bind:cmovies="movies" v-bind:cmessage="message"></cpn>
+</div>
+
+<template id="cpn">
+    <div>
+        <h2>{{cmovies}}</h2>
+        <h2>{{cmessage}}</h2>
+        <ul>
+            <li v-for="item in cmovies">{{item}}</li>
+        </ul>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const cpn = {
+        template: '#cpn',
+        //父传子 props,第一种写法：props是一个数组
+        props: ["cmovies", "cmessage"],
+
+        //第二种写法：props是一个对象，可以对props里的数据进行类型限制
+        // props:{
+        //     cmovies:Array,
+        //     cmessage:[String,Number], //多个可能的类型
+        // },
+        //第三种写法：提供一些默认值(没有传入数据时，显示默认值),以及必传值
+        // props:{
+        //     cmessage: {
+        //         type:String,
+        //         default:'aaaaaa',
+        //         required:true
+        //     },
+        //     cmovies:{
+        //         type:Array,
+        //         //类型是一个对象或数组时，默认值必须是一个函数
+        //         default(){
+        //             return{
+        //
+        //             }
+        //         },
+        //     }
+        // },
+        //第四种写法：自定义验证函数
+        // props:{
+        //     validator:function (value){
+        //         //这个值必须匹配下列字符串中的一个
+        //         return ['success','warning','danger'].indexOf(value) !==-1
+        //     }
+        // },
+        //第五种写法：自定义类型
+
+        data() {
+            return {}
+        }
+    }
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: '你好',
+            movies: ["海贼王", "红楼梦", "西游记"]
+        },
+        components: {
+            cpn
+        }
+    })
+</script>
+</body>
+</html>

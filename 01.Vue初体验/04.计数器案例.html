@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计数器案例</title>
+</head>
+<body>
+ <div id="app">
+<!--     <button v-on:click="counter&#45;&#45;">-</button>-->
+<!--     <span>当前计数：{{counter}}</span>-->
+<!--     <button v-on:click="counter++">+</button>-->
+
+     <!-- 语法糖：简写 @指令 是 v-on 指令的语法糖-->
+     <button v-on:click="sub">-</button>
+     <span>当前计数：{{counter}}</span>
+     <button v-on:click="add">+</button>
+ </div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            counter:"0"
+        },
+        methods:{
+            add:function (){
+                console.log("add被执行");
+                this.counter++
+            },
+            sub:function (){
+                console.log("sub被执行");
+                if (this.counter>0){
+                    this.counter--
+                }else{
+                    alert("已经是最小值了")
+                }
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

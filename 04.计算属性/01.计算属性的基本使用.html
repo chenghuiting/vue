@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性的基本使用</title>
+</head>
+<body>
+<div id="app">
+    <h2>{{firstName+' '+lastName}}</h2>
+    <!--注意methods和computed的命名区别：computed看起来是一个函数，
+         其实它是一个属性,命名时不需要用get之类的限定词-->
+    <h2>{{getFullName()}}</h2>
+    <h2>{{fullName}}</h2>
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            firstName:"张",
+            lastName:"三"
+        },
+        //computed 计算属性
+        computed:{
+            //看起来是一个函数，其实它是一个属性
+            fullName:function (){
+                return this.firstName+' '+this.lastName
+            }
+        },
+        methods:{
+            getFullName:function (){
+                return this.firstName+' '+this.lastName
+            }
+        }
+    })
+</script>
+</body>
+</html>

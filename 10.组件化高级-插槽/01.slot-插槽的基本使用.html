@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插槽的基本使用</title>
+</head>
+<body>
+<div id="app">
+    <cpn>
+        <button>按钮</button>
+    </cpn>
+    <cpn>
+        <!--如果有多个值，同时放入到组件进行替换时，一起作为替换元素-->
+        <span>我是span</span>
+        <p>haiihaihiah</p>
+        <p>yuyuyuy</p>
+    </cpn>
+    <cpn>
+        <p>我是p</p>
+    </cpn>
+    <cpn>
+        <h6>我是h6</h6>
+    </cpn>
+</div>
+<template id="cpn">
+    <div>
+        <h2>我是组件</h2>
+        <p>我是组件，哈哈哈</p>
+        <!--1.预留插槽位置（没写默认值的情况）-->
+        <slot></slot>
+        <!--2.给插槽设置默认值，只要上面不做具体指明，就显示默认写法-->
+        <!--        <slot>-->
+        <!--            <button>我是按钮</button>-->
+        <!--        </slot>-->
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: "你好哇！"
+        },
+        components: {
+            cpn: {
+                template: "#cpn"
+            },
+        }
+    })
+
+</script>
+</body>
+</html>

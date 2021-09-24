@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点击变色案例</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+        .active{
+            color: red;
+        }
+        .bgColor{
+            background: aqua;
+        }
+    </style>
+</head>
+<body>
+<!--需求：点击列表中的哪一项，哪一项的字就变成红色-->
+<div id="app" v-cloak>
+    <ul>
+        <li v-bind:class="{active:currentIndex===index,bgColor:currentIndex===index}"
+            v-for="(item,index) in movies"
+            v-on:click="changeR(index)">
+            {{item}}
+        </li>
+    </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            movies:["进击的巨人","红楼梦","海贼王","西游记","黑猫警长"],
+            currentIndex:0 //用来记录当前哪个是红色
+        },
+        methods:{
+            changeR:function (index){
+                console.log("aaaa")
+                this.currentIndex=index
+            }
+        }
+    })
+</script>
+</body>
+</html>

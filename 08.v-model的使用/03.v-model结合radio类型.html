@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-model结合radio类型</title>
+</head>
+<body>
+<div id="app">
+<!--radio具有相同的name，才会互斥，不能同时选择；一旦绑定了v-model属性，name属性就可以不用写-->
+    <label for="male"></label>
+    <input type="radio" id="male" value="男" name="sex" v-model="sex">男
+    <label for="female"></label>
+    <input type="radio" id="female" value="女" name="sex" v-model="sex">女
+    <h2>你选择的性别是：{{sex}}</h2>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            sex:'男' //打开浏览器默认选中“男”
+        }
+    })
+</script>
+</body>
+</html>

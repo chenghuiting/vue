@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域插槽</title>
+</head>
+<body>
+<div id="app">
+    <!--作用域插槽： 父组件替换插槽的标签，但是内容由子组件来提供-->
+    <!--目的是获取子组件中的pLanguages-->
+    <cpn>
+        <template slot-scope="slot" :data="pLanguages">
+            <!--此处的data正是，下面子组件模版里定义的data-->
+            <!--<span v-for="item in slot.data">{{item}} -&#45;&#45; </span>-->
+            <!--.join() 方法，将数组转化为字符串，并用括号内规定的字符隔开-->
+            <span>{{slot.data.join(' - ')}}</span>
+        </template>
+    </cpn>
+    <cpn>
+        <template slot-scope="slot">
+            <span v-for="item in slot.data">{{item}} *** </span>
+        </template>
+    </cpn>
+</div>
+
+<template id="cpn">
+    <div>
+        <!--:data data为自定义名称-->
+        <slot :data="pLanguages">
+            <ul>
+                <li v-for="item in pLanguages">{{item}}</li>
+            </ul>
+        </slot>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            message: "你好哇！",
+            isShow: true,
+        },
+        components: {
+            cpn: {
+                template: "#cpn",
+                data() {
+                    return {
+                        pLanguages: ['javascript', 'c++', 'java', 'c#']
+                    }
+                }
+            },
+        }
+    })
+
+</script>
+</body>
+</html>

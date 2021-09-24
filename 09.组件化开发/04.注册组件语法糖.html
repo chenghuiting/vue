@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册组件语法糖写法</title>
+</head>
+<body>
+<div id="app">
+    <!--第三步：使用组件-->
+    <my-cpn></my-cpn>
+    <cpn2></cpn2>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    //第一步：创建组件的构造器对象（语法糖写法可将该步骤省略）
+    //const cpnC = Vue.extend()
+
+    //注册组件(全局--不需要在Vue实例下挂载)
+    Vue.component('my-cpn', {
+        template: `<div>
+                <h2>我是标题1</h2>
+                <p>aaaaaaa</p>
+              </div>`
+    })
+    const app = new Vue({
+        el: "#app",
+        data: {},
+        //注册局部组件
+        components:{
+            'cpn2':{
+                template: `<div>
+                <h2>我是标题2</h2>
+                <p>ccccccc</p>
+              </div>`
+            }
+        }
+    })
+</script>
+</body>
+</html>

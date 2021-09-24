@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind动态绑定style（对象语法）</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!---->
+<div id="app" v-cloak>
+    <!--<h2 :style="{key(属性名):value(属性值)}"></h2>-->
+    <!--下面的50px必须加上单引号，否则就当成一个变量去解析 -->
+    <h2 v-bind:style="{fontSize:'50px'}">{{message}}</h2>
+    <!--下面的finalSize当成一个变量使用，不用加单引号，-->
+    <h2 v-bind:style="{fontSize:finalSize,color:finalColor,backgroundColor:bgColor}">{{message}}</h2>
+    <h2 v-bind:style="getStyles()">{{message}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            message:"你好！",
+            finalSize:'100px',
+            finalColor:'red',
+            bgColor:'blue'
+        },
+        methods:{
+            getStyles:function (){
+                return {fontSize:this.finalSize,color:this.finalColor}
+            }
+        }
+    })
+</script>
+</body>
+</html>

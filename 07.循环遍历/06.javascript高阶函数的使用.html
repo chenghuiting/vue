@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript高阶函数的使用</title>
+</head>
+<body>
+<script>
+    /*
+    * 编程范式：命令式编程、声明式编程
+    * 编程范式：面向对象编程：（第一公民：对象）封装、继承、多态
+    *         函数式编程： （第一公民：函数）
+    * javascript高阶函数:filter/map/reduce
+    * */
+    /*
+    * 1.filter函数的使用:
+    *       filter中的回调函数有一个要求：必须返回一个boolean值
+    *       当返回true时，函数内部会自动将这次回调的n加入到新的数组中；
+    *       当返回false时，函数内部会过滤掉这次的n
+    * */
+    //需求：取出所有小于100的数字
+    const nums = [10, 23, 90, 100, 230, 123, 890, 56];
+    let newNums = nums.filter(function (n) {
+        return n < 100
+    })
+    console.log(newNums) //[10, 23, 90, 56]
+
+    //map函数的使用（map映射操作）
+    //需求：将数组 newNums [10, 23, 90, 56] 里的每个元素乘以2
+    let new2Nums = newNums.map(function (n) {
+        return n * 2
+    })
+    console.log(new2Nums) //[20, 46, 180, 112]
+
+    //reduce函数的使用，reduce作用---对数组总所有的内容进行汇总
+    let total = new2Nums.reduce(function (preValue, n) {
+        return preValue + n
+    }, 0)
+    console.log(total)//358
+
+    //filter/map/reduce三种函数的合并写法
+    // let total = nums.filter(function (n) {
+    //     return n < 100
+    // }).map(function (n) {
+    //     return n * 2
+    // }).reduce(function (preValue, n) {
+    //     return preValue + n
+    // }, 0)
+    // console.log(total) //358
+
+    //箭头函数写法
+    // let total = nums.filter(n => n < 100).map(n => n * 2).reduce((pre, n) => pre + n);
+    // console.log(total) //358
+</script>
+</body>
+</html>

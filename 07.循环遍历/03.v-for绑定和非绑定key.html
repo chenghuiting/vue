@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for绑定和非绑定key</title>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="item in letter" :key="item">{{item}}</li>
+    </ul>
+    <button @click="insertF">BC中间插入F</button>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+           letter: ["A", "B", "C", "D", "E"]
+        },
+        methods:{
+            insertF(){
+                /*
+                    .splice()
+                * 参数1：start 表示修改array的索引位置
+                  参数2：deleteCount 表示要删掉的元素个数
+                  参数3：item 表示要插入的值
+                * */
+                this.letter.splice(2,0,"F")
+            }
+        }
+    })
+</script>
+</body>
+</html>

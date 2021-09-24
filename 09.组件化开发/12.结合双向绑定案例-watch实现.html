@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结合双向绑定案例-watch实现</title>
+</head>
+<body>
+<!--watch属性 用来监听某个属性的改变-->
+<div id="app">
+    <!--将vue实例里的数据传递给子组件-->
+    <cpn v-bind:number1="num1"
+         v-bind:number2="num2"
+         @num1change="num1change"
+         @num2change="num2change"
+    ></cpn>
+</div>
+
+<template id="cpn">
+    <!--不能直接在子组件的模板里修改它的数据，-->
+    <div>
+        <!--<input type="text" v-model="dnumber1">-->
+        <input type="text" v-model="dnumber1">
+        <h2>props:{{number1}}</h2>
+        <h2>子组件里的data:{{dnumber1}}</h2>
+        <!--<input type="text" v-model="dnumber2">-->
+        <input type="text" v-model="dnumber2">
+        <h2>props:{{number2}}</h2>
+        <h2>子组件里的data:{{dnumber2}}</h2>
+    </div>
+</template>
+
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            num1: 0,
+            num2: 1
+        },
+        methods: {
+            num1change(value) {
+                console.log(typeof value) //value默认是 string类型
+                //this.num1=+value //前面添加一个加号，将其转化为 Number 类型
+                this.num1 = parseFloat(value) //parseFloat()方法 将其转化为 Number 类型
+            },
+            num2change(value) {
+                this.num2 = +value
+            }
+        },
+        components: {
+            cpn: {
+                template: '#cpn',
+                props: {
+                    number1: Number,
+                    number2: Number,
+                },
+                /*
+                * 不能直接在子组件的模板里修改它的数据，
+                * 而是应该通过 data 或 conputed 来修改
+                * */
+                data() {
+                    return {
+                        dnumber1: this.number1,
+                        dnumber2: this.number2
+                    }
+                },
+                watch: {
+                    dnumber1(newValue) {
+                        this.dnumber2 = newValue * 100;
+                        this.$emit('num1change',newValue)
+                    },
+                    dnumber2(newValue) {
+                        this.dnumber1 = newValue / 100;
+                        this.$emit('num2change',newValue)
+                    }
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>

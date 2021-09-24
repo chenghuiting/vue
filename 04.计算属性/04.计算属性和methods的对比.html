@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性和methods的对比</title>
+</head>
+<body>
+<div id="app" v-cloak>
+    <h2>{{fullName}}</h2>
+    <h2>{{fullName}}</h2>
+
+    <h2>{{getFullName()}}</h2>
+    <h2>{{getFullName()}}</h2>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            firstname: "张",
+            lastname: "三"
+        },
+        computed:{
+            fullName:function (){
+                console.log("fullName") //只打印了一次
+                return this.firstname+' '+this.lastname
+            }
+        },
+        methods:{
+            getFullName:function (){
+                console.log("getFullName()")//打印了2次
+                return this.firstname+' '+this.lastname
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak指令的使用</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!--在某些情况下，浏览器可能会直接显示出未编译的Mustache标签。cloak原意为“斗篷”。-->
+<!--v-cloak指令 在vue解析之前，div中有一个属性v-cloak; 在vue解析之后，div中没有一个属性v-cloak-->
+    {{message}}
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app=new Vue({
+        el:"#app",
+        data:{
+            message:"你好",
+        }
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车案例</title>
+    <style>
+        table {
+            border: 1px solid #e9e9e9;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        th, td {
+            border: 1px solid #e9e9e9;
+            text-align: center;
+            padding: 10px;
+        }
+
+        th {
+            background: #f7f7f7
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。-->
+    <!--没有数据时，显示购物车为空-->
+    <div v-if="books.length">
+        <table>
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>书籍名称</th>
+                <th>出版日期</th>
+                <th>价格</th>
+                <th>购买数量</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item,index) in books">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.date}}</td>
+                <!-- toFixed() 方法可把 Number 四舍五入为指定小数位数的数字。-->
+                <!--<td>{{"￥"+item.price.toFixed(2)}}</td>-->
+                <td>{{item.price | showPrice}}</td>
+                <td>
+                    <!--v-bind:disabled="item.counter<=1" 当数量小于等于1时，让按钮置灰-->
+                    <button @click="decrement(index)" v-bind:disabled="item.counter<=1">-</button>
+                    {{item.counter}}
+                    <button @click="increment(index)">+</button>
+                </td>
+                <td>
+                    <button @click="removeHandler(index)">移除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>总价：{{totalPrice | showPrice}}</h3>
+    </div>
+    <h2 v-else>购物车为空</h2>
+
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            books: [
+                {
+                    id: 1,
+                    name: "《算法导论》",
+                    date: 2006 - 9,
+                    price: 90,
+                    counter: 2
+                }, {
+                    id: 2,
+                    name: "《代码大全》",
+                    date: 2006 - 9,
+                    price: 90,
+                    counter: 2
+                }, {
+                    id: 3,
+                    name: "《编程珠玑》",
+                    date: 2006 - 9,
+                    price: 90,
+                    counter: 2
+                }, {
+                    id: 4,
+                    name: "《红楼梦》",
+                    date: 2006 - 9,
+                    price: 90,
+                    counter: 2
+                }, {
+                    id: 5,
+                    name: "《西游记》",
+                    date: 2006 - 9,
+                    price: 20,
+                    counter: 2
+                }, {
+                    id: 6,
+                    name: "《海贼王》",
+                    date: 2006 - 9,
+                    price: 90,
+                    counter: 2
+                }
+            ]
+        },
+        filters: {
+            showPrice(price) {
+                return '￥' + price.toFixed(2)
+            }
+        },
+        methods: {
+            decrement(index) {
+                console.log(index)
+                this.books[index].counter--
+            },
+            increment(index) {
+                this.books[index].counter++
+            },
+            removeHandler(index) {
+                this.books.splice(index, 1)
+            }
+        },
+        computed: {
+            totalPrice() {
+                //方法一：普通for循环写法
+                // let result=0;
+                // for (let i=1;i<this.books.length;i++){
+                //     result+=this.books[i].price*this.books[i].counter
+                // }
+                // return result
+                //方法二：直接拿到i
+                //  let result=0;
+                //  for (let i in this.books){ //这里的i拿到的是，数组books的下标
+                //      result+=this.books[i].price*this.books[i].counter
+                //  }
+                //  return result
+                //方法三：直接拿到item
+                //    let result=0;
+                //    for (let item of this.books){ //这里的i拿到的是，数组books的下标
+                //        result+=item.price*item.counter
+                //    }
+                //    return result
+                //方法四：reduce高阶函数写法
+                return this.books.reduce(function (preValue, book) {
+                    return preValue + book.price * book.counter
+                }, 0)
+            }
+        }
+    })
+</script>
+</body>
+</html>

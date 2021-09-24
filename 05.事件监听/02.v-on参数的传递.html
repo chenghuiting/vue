@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on参数的传递</title>
+</head>
+<body>
+<div id="app">
+    <!--事件监听 v-on 简写成 @    -->
+    <!--在事件定义时，写方法时省略了小括号，但是方法本身是需要一个参数(只能是一个参数)的，
+  这个时候，vue会默认将浏览器产生的event事件对象作为参数传入到方法中
+  <button @click="btnClick">按钮1</button>
+    等价于
+  <button @click="btnClick($event)">按钮1</button>-->
+    <button @click="btnClick">按钮1</button>
+    <button @click="btnClick($event)">按钮1</button>
+  <!--方法定义时，我们需要event对象，同时又需要其他参数。-->
+    <!--在调用方法时，如何手动获取到浏览器的参数的event对象，$event-->
+   <!--<button @click="btnClick3">按钮3</button>-->
+   <!--下面的a如果不加‘’，vue会将其解析为一个变量，而data里没有定义该变量，所以运行时会报错-->
+    <button @click="btnClick3('a',$event)">按钮3</button>
+</div>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: "#app",
+        data: {
+            counter: 0,
+        },
+        methods: {
+            btnClick(){
+                console.log(event)
+            },
+            btnClick3(a,event){
+                console.log('----',a,event)//----  PointerEvent  undefined
+            }
+        }
+    })
+    //如果函数需要参数，但是没有传入，那么函数的形参为undefined
+    function abc(name) {
+        console.log(name) //undefined
+    }
+    abc()
+</script>
+</body>
+</html>
